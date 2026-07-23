@@ -1,11 +1,10 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, JetBrains_Mono } from 'next/font/google'
+import { DM_Sans, Outfit, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
-import { CursorGlow } from '@/components/portfolio/cursor-glow'
-import { PageParallax } from '@/components/portfolio/page-parallax'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm-sans' })
+const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' })
 const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains-mono' })
 
 export const metadata: Metadata = {
@@ -31,7 +30,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#151921',
+  themeColor: '#1b1e22',
 }
 
 export default function RootLayout({
@@ -40,10 +39,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pt-BR" className={`${inter.variable} ${jetbrainsMono.variable} bg-background scroll-smooth motion-reduce:scroll-auto`}>
+    <html lang="pt-BR" className={`${dmSans.variable} ${outfit.variable} ${jetbrainsMono.variable} bg-background scroll-smooth motion-reduce:scroll-auto`}>
       <body className="font-sans antialiased bg-background text-foreground">
-        <CursorGlow />
-        <PageParallax />
         <div className="relative z-10">{children}</div>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

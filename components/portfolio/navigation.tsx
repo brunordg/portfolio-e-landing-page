@@ -4,11 +4,10 @@ import { useState, useEffect } from "react"
 import { Menu, X, Github, Linkedin } from "lucide-react"
 
 const links = [
-  { label: "Sobre", href: "#sobre" },
-  { label: "Experiencia", href: "#experiencia" },
+  { label: "Início", href: "#sobre" },
+  { label: "Experiência", href: "#experiencia" },
   { label: "Habilidades", href: "#habilidades" },
   { label: "Formação", href: "#formacao" },
-  { label: "Contato", href: "#contato" },
 ]
 
 export function Navigation() {
@@ -16,31 +15,35 @@ export function Navigation() {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
+    const onScroll = () => setScrolled(window.scrollY > 24)
+    onScroll()
     window.addEventListener("scroll", onScroll)
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
   return (
     <header
-      className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-background/80 border-b border-border backdrop-blur-md" : "bg-transparent"
+      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+        scrolled ? "border-b border-border bg-background/85 backdrop-blur-md" : "border-b border-transparent"
       }`}
     >
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a href="#" className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded bg-primary font-mono text-sm font-bold text-primary-foreground">
-            BR
-          </div>
-          <span className="hidden font-medium text-foreground sm:inline">Bruno Rodrigues</span>
+      <nav className="mx-auto flex max-w-6xl items-center gap-6 px-6 py-5">
+        <a href="#sobre" className="flex shrink-0 items-center gap-2.5">
+          <span className="relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-primary">
+            <span className="absolute inset-y-0 right-0 w-1/2 rounded-r-full bg-background" />
+            <span className="relative font-display text-[0.7rem] font-bold text-primary">BR</span>
+          </span>
+          <span className="font-display text-lg font-semibold tracking-tight text-foreground">
+            Bruno<span className="text-muted-foreground"> Rodrigues</span>
+          </span>
         </a>
 
-        <ul className="hidden items-center gap-8 lg:flex">
+        <ul className="ml-auto hidden items-center gap-8 lg:flex">
           {links.map((l) => (
             <li key={l.href}>
               <a
                 href={l.href}
-                className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                className="text-sm text-muted-foreground underline-offset-8 transition-colors hover:text-foreground hover:underline hover:decoration-primary hover:decoration-2"
               >
                 {l.label}
               </a>
@@ -48,12 +51,12 @@ export function Navigation() {
           ))}
         </ul>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="ml-auto flex items-center gap-2 lg:ml-6">
           <a
             href="https://github.com/brunordg"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+            className="hidden rounded-full p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-primary sm:inline-flex"
             aria-label="GitHub"
           >
             <Github size={18} />
@@ -62,26 +65,32 @@ export function Navigation() {
             href="https://www.linkedin.com/in/brunorodrigues-rodrigues/"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+            className="hidden rounded-full p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-primary sm:inline-flex"
             aria-label="LinkedIn"
           >
             <Linkedin size={18} />
           </a>
+          <a
+            href="#contato"
+            className="hidden rounded-full bg-accent px-6 py-2.5 text-sm font-semibold text-accent-foreground transition-transform hover:-translate-y-0.5 md:inline-flex"
+          >
+            Fale comigo
+          </a>
+          <button
+            onClick={() => setOpen(!open)}
+            className="rounded-full p-2 text-foreground lg:hidden"
+            aria-label={open ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={open}
+          >
+            {open ? <X size={22} /> : <Menu size={22} />}
+          </button>
         </div>
-
-        <button
-          onClick={() => setOpen(!open)}
-          className="text-foreground lg:hidden"
-          aria-label={open ? "Fechar menu" : "Abrir menu"}
-        >
-          {open ? <X size={22} /> : <Menu size={22} />}
-        </button>
       </nav>
 
       {open && (
-        <div className="border-b border-border bg-background/95 backdrop-blur-md lg:hidden">
+        <div className="border-t border-border bg-background/95 backdrop-blur-md lg:hidden">
           <ul className="mx-auto flex max-w-6xl flex-col gap-1 px-6 py-4">
-            {links.map((l) => (
+            {[...links, { label: "Contato", href: "#contato" }].map((l) => (
               <li key={l.href}>
                 <a
                   href={l.href}

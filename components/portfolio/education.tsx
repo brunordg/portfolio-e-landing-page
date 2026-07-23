@@ -8,17 +8,17 @@ import { SectionReveal } from "./section-reveal"
 const education = [
   {
     institution: "Universidade Presbiteriana Mackenzie",
-    degree: "MBA em Governanca Digital",
+    degree: "MBA em Governança Digital",
     period: "Ago 2024 — Jun 2026",
     tag: "MBA",
-    status: "Concluido",
+    status: "Concluído",
   },
   {
     institution: "Universidade Paulista",
-    degree: "Bacharel em Ciencia da Computacao",
+    degree: "Bacharel em Ciência da Computação",
     period: "2006 — 2009",
     tag: "Bacharelado",
-    status: "Concluido",
+    status: "Concluído",
   },
 ]
 
@@ -26,57 +26,40 @@ export function Education() {
   const prefersReducedMotion = useReducedMotion()
 
   return (
-    <SectionReveal id="formacao" className="relative px-6 py-24">
-      <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-transparent via-primary/5 to-transparent" />
-      
-      <div className="relative mx-auto max-w-6xl">
-        <div className="mb-16">
-          <p className="mb-3 font-mono text-sm uppercase tracking-widest text-primary">
-            Formação
-          </p>
-          <h2 className="text-4xl font-bold tracking-tight text-foreground">
-            Formação Acadêmica
+    <SectionReveal id="formacao" className="relative px-6 py-24 lg:py-32">
+      <div className="mx-auto max-w-6xl">
+        <div className="flex flex-col gap-5 pb-14">
+          <p className="eyebrow">Formação</p>
+          <h2 className="text-4xl font-bold tracking-tight text-foreground lg:text-5xl">
+            Formação acadêmica
           </h2>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-5 md:grid-cols-2">
           {education.map((edu, index) => (
             <motion.div
               key={edu.institution}
-              className="group rounded-xl border border-border bg-card/50 p-6 backdrop-blur-sm transition-all hover:border-primary/30 hover:bg-card"
-              initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 36 }}
+              className="group flex flex-col gap-4 rounded-2xl border border-border bg-card p-8 transition-colors hover:border-primary/40"
+              initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 28 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{
-                duration: prefersReducedMotion ? 0.01 : 0.8,
-                delay: prefersReducedMotion ? 0 : 0.12 + index * 0.12,
+                duration: prefersReducedMotion ? 0.01 : 0.7,
+                delay: prefersReducedMotion ? 0 : index * 0.1,
                 ease: [0.22, 1, 0.36, 1],
               }}
             >
-              <div className="mb-5 flex items-center justify-between">
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                  {edu.tag === "MBA" ? <BookOpen size={22} /> : <GraduationCap size={22} />}
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="rounded-full bg-secondary px-3 py-1 font-mono text-xs text-muted-foreground">
-                    {edu.tag}
-                  </span>
-                  {edu.status === "Em andamento" && (
-                    <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-                      {edu.status}
-                    </span>
-                  )}
-                </div>
+              <div className="flex items-center justify-between gap-4">
+                <span className="flex h-12 w-12 items-center justify-center rounded-full border border-primary/40 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                  {edu.tag === "MBA" ? <BookOpen size={20} /> : <GraduationCap size={20} />}
+                </span>
+                <span className="rounded-full bg-card-elevated px-3 py-1.5 font-mono text-xs uppercase tracking-wider text-muted-foreground">
+                  {edu.tag}
+                </span>
               </div>
-              <h3 className="text-xl font-semibold text-foreground">
-                {edu.degree}
-              </h3>
-              <p className="mt-2 text-muted-foreground">
-                {edu.institution}
-              </p>
-              <p className="mt-4 font-mono text-sm text-primary">
-                {edu.period}
-              </p>
+              <h3 className="text-xl font-semibold text-foreground">{edu.degree}</h3>
+              <p className="text-muted-foreground">{edu.institution}</p>
+              <p className="mt-auto pt-2 font-mono text-sm tabular-nums text-primary">{edu.period}</p>
             </motion.div>
           ))}
         </div>
