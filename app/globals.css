@@ -22,7 +22,7 @@
   --color-secondary: #2b3036;
   --color-secondary-foreground: #d3d8d6;
   --color-muted: #2b3036;
-  --color-muted-foreground: #98a0a6;
+  --color-muted-foreground: #a9b0b5;
   --color-accent: #f7c948;
   --color-accent-foreground: #2a2205;
   --color-destructive: #e5484d;
@@ -106,6 +106,13 @@
   );
 }
 
+/* Unlayered so no utility or reset can hide the keyboard ring */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
 .grain {
   background-image: radial-gradient(circle at 1px 1px, rgb(255 255 255 / 0.05) 1px, transparent 0);
   background-size: 28px 28px;
@@ -148,4 +155,11 @@
   .animate-halo {
     animation: none;
   }
+}
+
+/* Unlayered so no utility or reset can hide the keyboard ring */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
 }

@@ -1,7 +1,6 @@
 "use client"
 
 import { GraduationCap, BookOpen } from "lucide-react"
-import { motion, useReducedMotion } from "framer-motion"
 
 import { SectionReveal } from "./section-reveal"
 
@@ -23,10 +22,8 @@ const education = [
 ]
 
 export function Education() {
-  const prefersReducedMotion = useReducedMotion()
-
   return (
-    <SectionReveal id="formacao" className="relative px-6 py-24 lg:py-32">
+    <SectionReveal id="formacao" className="relative px-6 py-20 lg:py-28">
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col gap-5 pb-14">
           <p className="eyebrow">Formação</p>
@@ -36,18 +33,10 @@ export function Education() {
         </div>
 
         <div className="grid gap-5 md:grid-cols-2">
-          {education.map((edu, index) => (
-            <motion.div
+          {education.map((edu) => (
+            <div
               key={edu.institution}
-              className="group flex flex-col gap-4 rounded-2xl border border-border bg-card p-8 transition-colors hover:border-primary/40"
-              initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{
-                duration: prefersReducedMotion ? 0.01 : 0.7,
-                delay: prefersReducedMotion ? 0 : index * 0.1,
-                ease: [0.22, 1, 0.36, 1],
-              }}
+              className="group flex flex-col gap-4 rounded-2xl border border-border bg-card p-8 transition-[transform,border-color] duration-300 hover:-translate-y-0.5 hover:border-primary/40 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
             >
               <div className="flex items-center justify-between gap-4">
                 <span className="flex h-12 w-12 items-center justify-center rounded-full border border-primary/40 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
@@ -60,7 +49,7 @@ export function Education() {
               <h3 className="text-xl font-semibold text-foreground">{edu.degree}</h3>
               <p className="text-muted-foreground">{edu.institution}</p>
               <p className="mt-auto pt-2 font-mono text-sm tabular-nums text-primary">{edu.period}</p>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

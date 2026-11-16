@@ -72,7 +72,7 @@ export function Navigation() {
           </a>
           <a
             href="#contato"
-            className="hidden rounded-full bg-accent px-6 py-2.5 text-sm font-semibold text-accent-foreground transition-transform hover:-translate-y-0.5 md:inline-flex"
+            className="hidden rounded-full bg-accent px-6 py-2.5 text-sm font-semibold text-accent-foreground transition-transform hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] motion-reduce:transform-none md:inline-flex"
           >
             Fale comigo
           </a>

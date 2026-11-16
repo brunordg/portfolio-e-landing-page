@@ -1,29 +1,19 @@
 "use client"
 
 import Image from "next/image"
-import { motion, useReducedMotion } from "framer-motion"
+import { motion, MotionConfig } from "framer-motion"
 import { MapPin, ArrowRight } from "lucide-react"
 
 const stack = ["Java", "Spring Boot", "AWS", "Docker", "Kubernetes", "Python", "Apache Camel", "Oracle"]
 
-/* Four anchors around the portrait ring, mirroring the reference sheet's tool badges */
-const orbitBadges = [
-  { label: "Java", position: "left-2 top-10 sm:left-0 sm:top-12", delay: 0 },
-  { label: "AWS", position: "right-2 top-10 sm:right-0 sm:top-12", delay: 1.4 },
-  { label: "K8s", position: "-left-2 bottom-24 sm:left-[-1rem] sm:bottom-28", delay: 0.7 },
-  { label: "Spring", position: "-right-2 bottom-24 sm:right-[-1rem] sm:bottom-28", delay: 2.1 },
-]
-
 export function Hero() {
-  const prefersReducedMotion = useReducedMotion()
-
   const rise = {
-    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
+    hidden: { opacity: 0, y: 20 },
     visible: (delay: number = 0) => ({
       opacity: 1,
       y: 0,
       transition: {
-        duration: prefersReducedMotion ? 0.01 : 0.7,
+        duration: 0.7,
         delay,
         ease: [0.22, 1, 0.36, 1] as const,
       },
@@ -31,9 +21,8 @@ export function Hero() {
   }
 
   return (
+    <MotionConfig reducedMotion="user">
     <section id="sobre" className="relative overflow-hidden scroll-mt-24">
-      <div className="grain pointer-events-none absolute inset-0 opacity-40" />
-
       <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-6 pb-24 pt-36 lg:grid-cols-[1fr_minmax(0,26rem)] lg:gap-8 lg:pb-32 lg:pt-40">
         {/* Left — the claim */}
         <div className="flex flex-col gap-7">
@@ -76,7 +65,7 @@ export function Hero() {
           >
             <a
               href="#contato"
-              className="group inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 font-semibold text-accent-foreground transition-transform hover:-translate-y-0.5"
+              className="group inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 font-semibold text-accent-foreground transition-transform hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] motion-reduce:transform-none"
             >
               Entrar em contato
               <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
@@ -102,9 +91,7 @@ export function Hero() {
             </span>
             <span className="inline-flex items-center gap-2">
               <span className="relative flex h-2 w-2">
-                {!prefersReducedMotion && (
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/70" />
-                )}
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/70 motion-reduce:hidden" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
               </span>
               Disponível para novos projetos
@@ -115,54 +102,27 @@ export function Hero() {
         {/* Right — portrait held by the emerald arc */}
         <motion.div
           className="relative mx-auto w-full max-w-88 lg:max-w-none"
-          initial={{ opacity: 0, scale: prefersReducedMotion ? 1 : 0.94 }}
+          initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: prefersReducedMotion ? 0.01 : 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="animate-halo absolute inset-6 rounded-full bg-primary/25 blur-3xl" />
-
-          <div className="portrait-ring relative aspect-square rounded-full p-3.5">
+          <div className="group portrait-ring relative aspect-square rounded-full p-3.5">
             <div className="relative h-full w-full overflow-hidden rounded-full bg-card">
               <Image
                 src="/images/profile.png"
                 alt="Bruno Rodrigues — Tech Lead"
                 fill
                 sizes="(max-width: 1024px) 22rem, 26rem"
-                className="object-cover object-top"
+                className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                 priority
               />
-            </div>
-          </div>
-
-          {orbitBadges.map((badge) => (
-            <div
-              key={badge.label}
-              className={`animate-orbit-drift absolute ${badge.position} rounded-full border border-border bg-card-elevated px-4 py-2 font-mono text-xs font-medium text-foreground shadow-lg shadow-black/30`}
-              style={{ animationDelay: `${badge.delay}s` }}
-            >
-              {badge.label}
-            </div>
-          ))}
-
-          <div className="absolute -bottom-4 left-1/2 flex -translate-x-1/2 divide-x divide-border rounded-full border border-border bg-card-elevated px-2 py-2.5 shadow-xl shadow-black/40">
-            <div className="px-5 text-center">
-              <p className="font-display text-xl font-bold text-primary">15+</p>
-              <p className="font-mono text-[0.65rem] uppercase tracking-wider text-muted-foreground">
-                anos
-              </p>
-            </div>
-            <div className="px-5 text-center">
-              <p className="font-display text-xl font-bold text-primary">6</p>
-              <p className="font-mono text-[0.65rem] uppercase tracking-wider text-muted-foreground">
-                empresas
-              </p>
             </div>
           </div>
         </motion.div>
       </div>
 
       {/* Stack rail */}
-      <div className="relative mx-auto max-w-6xl px-6 pb-20">
+      <div className="relative mx-auto max-w-6xl px-6 pb-16">
         <div className="flex flex-col gap-5 border-t border-border pt-8 sm:flex-row sm:items-center sm:gap-10">
           <p className="shrink-0 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
             Stack principal
@@ -172,10 +132,10 @@ export function Hero() {
               <motion.span
                 key={tech}
                 className="font-mono text-sm text-secondary-foreground transition-colors hover:text-primary"
-                initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 8 }}
+                initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
-                  duration: prefersReducedMotion ? 0.01 : 0.45,
+                  duration: 0.45,
                   delay: 0.5 + index * 0.05,
                   ease: [0.22, 1, 0.36, 1],
                 }}
@@ -187,5 +147,6 @@ export function Hero() {
         </div>
       </div>
     </section>
+    </MotionConfig>
   )
 }

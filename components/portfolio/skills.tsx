@@ -1,7 +1,6 @@
 "use client"
 
 import { Server, Cloud, Users, Zap, ArrowUpRight } from "lucide-react"
-import { motion, useReducedMotion } from "framer-motion"
 
 import { SectionReveal } from "./section-reveal"
 
@@ -29,29 +28,17 @@ const skillCategories = [
 ]
 
 export function Skills() {
-  const prefersReducedMotion = useReducedMotion()
-
   return (
-    <SectionReveal id="habilidades" className="relative px-6 py-24 lg:py-32">
+    <SectionReveal id="habilidades" className="relative px-6 py-20 lg:py-28">
       <div className="mx-auto grid max-w-6xl gap-14 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:gap-20">
         {/* Card grid — second column drops half a step, as on the reference sheet */}
         <div className="grid gap-5 sm:grid-cols-2">
-          {skillCategories.map((cat, index) => {
+          {skillCategories.map((cat) => {
             const Icon = cat.icon
             return (
-              <motion.div
+              <div
                 key={cat.title}
-                className={`group flex flex-col gap-4 rounded-2xl border border-border bg-card p-6 transition-colors hover:border-primary/40 ${
-                  index % 2 === 1 ? "sm:mt-8" : ""
-                }`}
-                initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{
-                  duration: prefersReducedMotion ? 0.01 : 0.7,
-                  ease: [0.22, 1, 0.36, 1],
-                  delay: prefersReducedMotion ? 0 : index * 0.07,
-                }}
+                className={`group flex flex-col gap-4 rounded-2xl border border-border bg-card p-6 transition-[transform,border-color] duration-300 hover:-translate-y-0.5 hover:border-primary/40 motion-reduce:transition-none motion-reduce:hover:translate-y-0`}
               >
                 <span className="flex h-12 w-12 items-center justify-center rounded-full border border-primary/40 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
                   <Icon size={20} />
@@ -67,7 +54,7 @@ export function Skills() {
                     </span>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             )
           })}
         </div>
@@ -90,7 +77,7 @@ export function Skills() {
           <div className="flex flex-wrap items-center gap-4 pt-2">
             <a
               href="#experiencia"
-              className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 font-semibold text-accent-foreground transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 font-semibold text-accent-foreground transition-transform hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] motion-reduce:transform-none"
             >
               Ver trajetória completa
             </a>
